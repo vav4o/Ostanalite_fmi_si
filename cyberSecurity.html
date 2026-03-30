@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alarm System - HTML Only</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0f172a;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    background-color: #2563eb;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Алармена система</h2>
+    <p>Въведете 4-цифров PIN код:</p>
+    <form onsubmit="return checkPin(this)">
+        <input type="password" placeholder="Въведете парола" maxlength="4" pattern="[0-9]{4}" required
+            oninvalid="this.setCustomValidity('Пробвай ей тва 0000')"
+            oninput="this.setCustomValidity('')">
+        <button type="submit">Запази PIN</button>
+    </form>
+</div>
+
+</body>
+</html>
