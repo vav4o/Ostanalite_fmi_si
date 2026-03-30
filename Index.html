@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камера за достъп и оторизация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+        }
+
+        section {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        video {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <header>
+        <h1>📹 Камера за достъп и оторизация</h1>
+    </header>
+
+    <form action="#" method="post">
+        <label for="username">Потребителско име:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Парола:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Вход</button>
+    </form>
+
+    <article>
+        <h2>Видео поток</h2>
+        <video controls>
+            <source src="camera-stream.mp4" type="video/mp4">
+            Вашият браузър не поддържа video tag.
+        </video>
+    </article>
+
+    <footer>
+        <p>Само оторизирани потребители имат достъп до камерата.</p>
+    </footer>
+</section>
+
+</body>
+</html>
