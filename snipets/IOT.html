@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aligned Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+    }
+
+    .value {
+      width: 40px;
+      text-align: right;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <label for="range">Value:</label>
+    <input type="range" id="range" min="0" max="100" value="50">
+    <span class="value" id="value">50</span>
+  </div>
+
+  <script>
+    const slider = document.getElementById("range");
+    const output = document.getElementById("value");
+
+    slider.addEventListener("input", () => {
+      output.textContent = slider.value;
+    });
+  </script>
+
+</body>
+</html>
