@@ -4,22 +4,121 @@
     <title>Умно осветление: Графици и автоматизация</title>
 
     <style>
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: rgba(15, 23, 42, 0.10);
+            --shadow: 0 14px 30px rgba(2, 6, 23, 0.08);
+            --primary: #2563eb;
+            --primary-2: #1d4ed8;
+            --ring: rgba(37, 99, 235, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 40px;
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: radial-gradient(1200px 700px at 10% 0%, #eaf1ff 0%, transparent 55%),
+                        radial-gradient(900px 600px at 90% 10%, #e9fff5 0%, transparent 60%),
+                        var(--bg);
+            margin: 0;
+            padding: 24px;
+            color: var(--text);
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            margin: 10px auto 16px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: clamp(22px, 3vw, 30px);
+            letter-spacing: -0.02em;
+        }
+
+        .page-header .subtitle {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 14px 0 22px;
+            padding: 10px;
+            background: rgba(255,255,255,0.65);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #0b1220;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .nav a:hover {
+            transform: translateY(-1px);
+            background: #111a2b;
+        }
+
+        .nav a.primary {
+            background: var(--primary);
+            border-color: rgba(255,255,255,0.18);
+        }
+
+        .nav a.primary:hover {
+            background: var(--primary-2);
+        }
+
+        .nav a.active {
+            box-shadow: 0 0 0 3px var(--ring);
+        }
+
+        /* Form layout */
+        form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 22px rgba(2, 6, 23, 0.06);
+            max-width: 920px;
+            margin: 0 auto;
         }
 
         .form-group {
-            max-width: 400px;
-            margin-bottom: 20px;
+            max-width: 620px;
+            margin: 0 auto 16px;
         }
 
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 700;
+            color: var(--text);
         }
 
         input[type="text"],
@@ -30,156 +129,173 @@
         select,
         textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border: 1px solid rgba(15, 23, 42, 0.14);
+            border-radius: 12px;
             font-size: 14px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.12s ease, box-shadow 0.12s ease;
             background-color: #fff;
+            outline: none;
         }
 
         textarea {
-            height: 120px;
+            min-height: 120px;
             resize: vertical;
         }
 
         input:focus,
         textarea:focus,
         select:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-            outline: none;
-        }
-
-        /* Fix invalid style */
-        input:invalid,
-        textarea:invalid,
-        select:invalid {
-            border-color: #c1cad8;
+            border-color: rgba(37, 99, 235, 0.6);
+            box-shadow: 0 0 0 3px var(--ring);
         }
 
         .options label {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: normal;
-            margin-bottom: 6px;
+            gap: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
             cursor: pointer;
+            color: var(--text);
         }
 
         input[type="radio"],
         input[type="checkbox"] {
             width: auto;
             margin-right: 6px;
-            transform: scale(1.2);
+            transform: scale(1.1);
             cursor: pointer;
         }
 
         button {
-            width: 50%;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #4CAF50;
+            width: 240px;
+            padding: 10px 12px;
+            font-size: 15px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            transform: translateY(-1px);
+            background: var(--primary-2);
+            box-shadow: 0 10px 18px rgba(37, 99, 235, 0.24);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Умно осветление: Графици и автоматизация</h1>
-
-    <form id="SmartLightingForm">
-        <div class="form-group">
-            <label for="zoneName">Име на зона / стая</label>
-            <input 
-                id="zoneName" 
-                name="zoneName" 
-                type="text" 
-                placeholder="напр. Хол, Спалня" 
-                required>
+    <div class="wrap">
+        <div class="page-header">
+            <h1>Умно осветление: Графици и автоматизация</h1>
+            <p class="subtitle">You are on: Automation</p>
         </div>
 
-        <div class="form-group">
-            <label for="deviceId">Изберете лампа / устройство</label>
-            <select id="deviceId" name="deviceId" required>
-                <option value="">-- Изберете лампа --</option>
-                <option value="lamp-living-1">Хол - Лампа 1</option>
-                <option value="lamp-living-2">Хол - Лампа 2</option>
-                <option value="lamp-bedroom-1">Спалня - Лампа 1</option>
-                <option value="lamp-kitchen-1">Кухня - Основна лампа</option>
-                <option value="lamp-corridor-1">Коридор - Лампа</option>
-                <option value="lamp-bathroom-1">Баня - Лампа</option>
-            </select>
-        </div>
+        <nav class="nav" aria-label="Site navigation">
+            <a class="primary" href="full_form.html">Back to Dashboard</a>
+            <a href="Index.html">📹 Security Camera</a>
+            <a class="active" aria-current="page" href="Automation.html">💡 Smart Lighting</a>
+            <a href="cyberSecurity.html">🚨 Alarm PIN Setup</a>
+        </nav>
 
-        <div class="form-group">
-            <label for="startTime">Час на включване</label>
-            <input id="startTime" name="startTime" type="time" required>
-        </div>
-
-        <div class="form-group">
-            <label for="endTime">Час на изключване</label>
-            <input id="endTime" name="endTime" type="time" required>
-        </div>
-
-        <div class="form-group">
-            <label for="days">Дни от седмицата</label>
-            <div class="options" id="days-group">
-                <label><input type="checkbox" name="days" value="mon"> Понеделник</label>
-                <label><input type="checkbox" name="days" value="tue"> Вторник</label>
-                <label><input type="checkbox" name="days" value="wed"> Сряда</label>
-                <label><input type="checkbox" name="days" value="thu"> Четвъртък</label>
-                <label><input type="checkbox" name="days" value="fri"> Петък</label>
-                <label><input type="checkbox" name="days" value="sat"> Събота</label>
-                <label><input type="checkbox" name="days" value="sun"> Неделя</label>
+        <form id="SmartLightingForm">
+            <div class="form-group">
+                <label for="zoneName">Име на зона / стая</label>
+                <input 
+                    id="zoneName" 
+                    name="zoneName" 
+                    type="text" 
+                    placeholder="напр. Хол, Спалня" 
+                    required>
             </div>
-            <small id="days-error" style="color:red; display:none;">Моля, изберете поне един ден от седмицата.</small>
-        </div>
 
-        <div class="form-group">
-            <label for="brightness">Яркост (%)</label>
-            <input id="brightness" name="brightness" type="number" min="1" max="100" required>
-        </div>
-
-        <div class="form-group">
-            <label for="mode">Режим на осветление</label>
-            <select id="mode" name="mode" required>
-                <option value="">-- Изберете режим --</option>
-                <option value="normal">Стандартен</option>
-                <option value="eco">Икономичен</option>
-                <option value="night">Нощен</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="motionSensor">Сензор за движение</label>
-            <div class="options">
-                <label>
-                    <input type="radio" name="motionSensor" value="enabled" required>
-                    Активиран
-                </label>
-                <label>
-                    <input type="radio" name="motionSensor" value="disabled">
-                    Деактивиран
-                </label>
+            <div class="form-group">
+                <label for="deviceId">Изберете лампа / устройство</label>
+                <select id="deviceId" name="deviceId" required>
+                    <option value="">-- Изберете лампа --</option>
+                    <option value="lamp-living-1">Хол - Лампа 1</option>
+                    <option value="lamp-living-2">Хол - Лампа 2</option>
+                    <option value="lamp-bedroom-1">Спалня - Лампа 1</option>
+                    <option value="lamp-kitchen-1">Кухня - Основна лампа</option>
+                    <option value="lamp-corridor-1">Коридор - Лампа</option>
+                    <option value="lamp-bathroom-1">Баня - Лампа</option>
+                </select>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="notes">Допълнителни бележки</label>
-            <textarea id="notes" name="notes" placeholder="Описания на сценарии, условия за сигурност и др." required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="startTime">Час на включване</label>
+                <input id="startTime" name="startTime" type="time" required>
+            </div>
 
-        <button type="submit">Запази графика</button>
-    </form>
+            <div class="form-group">
+                <label for="endTime">Час на изключване</label>
+                <input id="endTime" name="endTime" type="time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="days">Дни от седмицата</label>
+                <div class="options" id="days-group">
+                    <label><input type="checkbox" name="days" value="mon"> Понеделник</label>
+                    <label><input type="checkbox" name="days" value="tue"> Вторник</label>
+                    <label><input type="checkbox" name="days" value="wed"> Сряда</label>
+                    <label><input type="checkbox" name="days" value="thu"> Четвъртък</label>
+                    <label><input type="checkbox" name="days" value="fri"> Петък</label>
+                    <label><input type="checkbox" name="days" value="sat"> Събота</label>
+                    <label><input type="checkbox" name="days" value="sun"> Неделя</label>
+                </div>
+                <small id="days-error" style="color:red; display:none;">Моля, изберете поне един ден от седмицата.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="brightness">Яркост (%)</label>
+                <input id="brightness" name="brightness" type="number" min="1" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mode">Режим на осветление</label>
+                <select id="mode" name="mode" required>
+                    <option value="">-- Изберете режим --</option>
+                    <option value="normal">Стандартен</option>
+                    <option value="eco">Икономичен</option>
+                    <option value="night">Нощен</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="motionSensor">Сензор за движение</label>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="motionSensor" value="enabled" required>
+                        Активиран
+                    </label>
+                    <label>
+                        <input type="radio" name="motionSensor" value="disabled">
+                        Деактивиран
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Допълнителни бележки</label>
+                <textarea id="notes" name="notes" placeholder="Описания на сценарии, условия за сигурност и др." required></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit">Запази графика</button>
+            </div>
+        </form>
+    </div>
 
     <script>
         const form = document.getElementById('SmartLightingForm');
