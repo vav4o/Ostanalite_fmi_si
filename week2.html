@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Smart Home Alarm System</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #f4f6f8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+.container{
+    background:white;
+    padding:30px;
+    width:350px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+h2,h3{text-align:center;}
+label{font-weight:bold;}
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+button{
+    width:100%;
+    padding:10px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{background:#0056b3;}
+#message{text-align:center;margin-top:15px;font-weight:bold;}
+.status{text-align:center;margin-bottom:20px;padding:10px;border-radius:5px;}
+.armed{background:#ffcccc;}
+.disarmed{background:#ccffcc;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>Smart Alarm System</h2>
+
+<div id="alarmStatus" class="status disarmed">Alarm Status: DISARMED</div>
+<button onclick="toggleAlarm()">Arm / Disarm Alarm</button>
+
+<hr>
+<h3>Change Security PIN</h3>
+
+<form id="pinForm">
+<label>Current PIN</label>
+<input type="password" id="oldPin" maxlength="4" required>
+<label>New PIN</label>
+<input type="password" id="newPin" maxlength="4" required>
+<button type="submit">Update PIN</button>
+</form>
+
+<p id="message"></p>
+</div>
+
+<script>
+// Симулиран JSON за съхранение на потребител и PIN
+let alarmData = {
+    "user": "homeowner",
+    "pin": "1234",
+    "status": "disarmed"
+}
+
+// Toggle alarm status
+function toggleAlarm(){
+    const status = document.getElementById("alarmStatus")
+    alarmData.status = (alarmData.status === "disarmed") ? "armed" : "disarmed"
+    if(alarmData.status === "armed"){
+        status.textContent = "Alarm Status: ARMED"
+        status.className = "status armed"
+    } else {
+        status.textContent = "Alarm Status: DISARMED"
+        status.className = "status disarmed"
+    }
+}
+
+// DTO class simulator
+class PinUpdateDTO {
+    constructor(oldPin,newPin){ this.oldPin=oldPin; this.newPin=newPin; }
+}
+
+// Form submission
+document.getElementById("pinForm").addEventListener("submit", function(e){
+    e.preventDefault()
+    const oldPin = document.getElementById("oldPin").value
+    const newPin = document.getElementById("newPin").value
+    const message = document.getElementById("message")
+
+    const dto = new PinUpdateDTO(oldPin,newPin)
+
+    // Проверка на текущия PIN
+    if(dto.oldPin !== alarmData.pin){
+        message.textContent = "Wrong current PIN"
+        message.style.color = "red"
+        return
+    }
+
+    // Проверка на новия PIN
+    if(dto.newPin.length !== 4 || isNaN(dto.newPin)){
+        message.textContent = "PIN must be exactly 4 digits"
+        message.style.color = "red"
+        return
+    }
+
+    // Актуализиране на JSON
+    alarmData.pin = dto.newPin
+
+    message.textContent = "PIN updated successfully"
+    message.style.color = "green"
+    document.getElementById("pinForm").reset()
+
+    console.log("Updated alarm JSON:", JSON.stringify(alarmData, null, 2))
+})
+</script>
+</body>
+</html>
