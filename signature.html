@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Home & IoT Security Dashboard</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+    }
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+        padding: 10px 15px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+    .status {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    video {
+        width: 100%;
+        height: 200px;
+        background: black;
+    }
+</style>
+</head>
+<body>
+<h1>Smart Home & IoT Security Dashboard</h1>
+
+<div class="container">
+    <div class="card">
+        <h2>🛡️ Firmware Update</h2>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="verifyFirmware()">Verify & Update</button>
+        <div class="status" id="firmwareStatus"></div>
+    </div>
+</div>
+
+<script>
+function verifyFirmware() {
+    const fileInput = document.getElementById("fileInput");
+    const status = document.getElementById("firmwareStatus");
+    const validSignature = "SECURE123SIGN";
+
+    if (fileInput.files.length === 0) {
+        status.innerText = "Please upload a .txt file.";
+        status.style.color = "red";
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const fileContent = event.target.result.trim();
+
+        if (fileContent === validSignature) {
+            status.innerText = "Digital signature valid. Firmware updated.";
+            status.style.color = "green";
+        } else {
+            status.innerText = "Invalid signature! Update blocked.";
+            status.style.color = "red";
+        }
+    };
+
+    reader.onerror = function() {
+        status.innerText = "Error reading file.";
+        status.style.color = "red";
+    };
+
+    reader.readAsText(file);
+}
+</script>
+</body>
+</html>
