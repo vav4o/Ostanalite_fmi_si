@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камера за достъп и оторизация</title>
+    <style>
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: rgba(15, 23, 42, 0.10);
+            --shadow: 0 14px 30px rgba(2, 6, 23, 0.08);
+            --primary: #2563eb;
+            --primary-2: #1d4ed8;
+            --ring: rgba(37, 99, 235, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: radial-gradient(1200px 700px at 10% 0%, #eaf1ff 0%, transparent 55%),
+                        radial-gradient(900px 600px at 90% 10%, #e9fff5 0%, transparent 60%),
+                        var(--bg);
+            margin: 0;
+            padding: 24px;
+            color: var(--text);
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            margin: 10px auto 16px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: clamp(22px, 3vw, 30px);
+            letter-spacing: -0.02em;
+        }
+
+        .page-header .subtitle {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 14px 0 22px;
+            padding: 10px;
+            background: rgba(255,255,255,0.65);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #0b1220;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .nav a:hover {
+            transform: translateY(-1px);
+            background: #111a2b;
+        }
+
+        .nav a.primary {
+            background: var(--primary);
+            border-color: rgba(255,255,255,0.18);
+        }
+
+        .nav a.primary:hover {
+            background: var(--primary-2);
+        }
+
+        .nav a.active {
+            box-shadow: 0 0 0 3px var(--ring);
+        }
+
+        /* Content card */
+        section {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 22px rgba(2, 6, 23, 0.06);
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(15, 23, 42, 0.14);
+            background: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: box-shadow 0.12s ease, border-color 0.12s ease;
+        }
+
+        input:focus {
+            border-color: rgba(37, 99, 235, 0.6);
+            box-shadow: 0 0 0 3px var(--ring);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px 12px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            background: var(--primary-2);
+            box-shadow: 0 10px 18px rgba(37, 99, 235, 0.24);
+        }
+
+        video {
+            width: 100%;
+            margin-top: 14px;
+            border-radius: 12px;
+            background: #000;
+        }
+
+        h2 {
+            margin: 16px 0 10px;
+            font-size: 18px;
+            letter-spacing: -0.01em;
+        }
+
+        footer p {
+            color: var(--muted);
+            margin: 14px 0 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="page-header">
+        <h1>📹 Камера за достъп и оторизация</h1>
+        <p class="subtitle">You are on: Camera Login</p>
+    </div>
+
+    <nav class="nav" aria-label="Site navigation">
+        <a class="primary" href="full_form.html">Back to Dashboard</a>
+        <a class="active" aria-current="page" href="Index.html">📹 Security Camera</a>
+        <a href="Automation.html">💡 Smart Lighting</a>
+        <a href="cyberSecurity.html">🚨 Alarm PIN Setup</a>
+    </nav>
+
+    <section>
+        <form action="#" method="post">
+            <label for="username">Потребителско име:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Парола:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Вход</button>
+        </form>
+
+        <article>
+            <h2>Видео поток</h2>
+            <video controls>
+                <source src="camera-stream.mp4" type="video/mp4">
+                Вашият браузър не поддържа video tag.
+            </video>
+        </article>
+
+        <footer>
+            <p>Само оторизирани потребители имат достъп до камерата.</p>
+        </footer>
+    </section>
+</div>
+
+</body>
+</html>
