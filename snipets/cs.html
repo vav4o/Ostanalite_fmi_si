@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Access API DTO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        pre {
+            background: #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📹 Camera Access REST API Simulation</h2>
+
+    <form id="apiForm">
+        <label>Username</label>
+        <input type="text" id="username" required>
+
+        <label>Password</label>
+        <input type="password" id="password" required>
+
+        <button type="submit">Send API Request</button>
+    </form>
+
+    <p id="status"></p>
+
+    <h3>📤 Request DTO JSON</h3>
+    <pre id="requestJson"></pre>
+
+    <h3>📥 Response DTO JSON</h3>
+    <pre id="responseJson"></pre>
+</div>
+
+<script>
+document.getElementById("apiForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const status = document.getElementById("status");
+    const requestOutput = document.getElementById("requestJson");
+    const responseOutput = document.getElementById("responseJson");
+
+    // REQUEST DTO
+    const requestDTO = {
+        username: username,
+        password: password
+    };
+
+    requestOutput.textContent = JSON.stringify(requestDTO, null, 4);
+
+    // Validation
+    if (username.length < 3 || password.length < 6) {
+        const errorResponse = {
+            status: 400,
+            message: "Validation failed",
+            accessGranted: false
+        };
+
+        status.innerHTML = "❌ Request failed";
+        status.className = "error";
+
+        responseOutput.textContent = JSON.stringify(errorResponse, null, 4);
+        return;
+    }
+
+    // RESPONSE DTO
+    const responseDTO = {
+        status: 200,
+        message: "Access granted",
+        accessGranted: true,
+        streamUrl: "camera-stream.mp4",
+        role: "AUTHORIZED_USER"
+    };
+
+    status.innerHTML = "✅ API request successful";
+    status.className = "success";
+
+    responseOutput.textContent = JSON.stringify(responseDTO, null, 4);
+});
+</script>
+
+</body>
+</html>
