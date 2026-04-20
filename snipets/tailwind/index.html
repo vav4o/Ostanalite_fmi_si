@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Home & IoT Security Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans text-slate-900 bg-[radial-gradient(1200px_700px_at_10%_0%,#eaf1ff_0%,transparent_55%),radial-gradient(900px_600px_at_90%_10%,#e9fff5_0%,transparent_60%)] bg-slate-100 p-6">
+
+<div class="max-w-[1100px] mx-auto">
+
+    <div class="text-center mt-2 mb-4">
+        <h1 class="text-[clamp(22px,3vw,32px)] font-bold tracking-tight">
+            Smart Home & IoT Security Dashboard
+        </h1>
+        <p class="text-sm text-slate-500 mt-2">You are on: Dashboard</p>
+    </div>
+
+    <nav class="flex flex-nowrap justify-center gap-2 p-2 mb-6 rounded-2xl border border-slate-200 bg-white/60 backdrop-blur">
+        <a href="full_form.html"
+           class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 border border-white/10 hover:-translate-y-0.5 hover:bg-slate-800 transition">
+            Home (Dashboard)
+        </a>
+
+        <a href="Index.html"
+           class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:-translate-y-0.5 hover:bg-slate-800 transition">
+            📹 Security Camera
+        </a>
+
+        <a href="Automation.html"
+           class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:-translate-y-0.5 hover:bg-slate-800 transition">
+            💡 Smart Lighting
+        </a>
+
+        <a href="#"
+           class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:-translate-y-0.5 hover:bg-slate-800 transition">
+            🚨 Alarm PIN Setup
+        </a>
+    </nav>
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
+
+        <div class="card bg-white p-5 rounded-2xl border border-slate-200 shadow-md cursor-pointer outline-none transition hover:-translate-y-0.5 hover:shadow-xl"
+             tabindex="0">
+            <h2 class="text-lg font-semibold mb-3">🔐 Smart Lock Control</h2>
+
+            <div class="flex gap-2 flex-wrap">
+                <button onclick="unlockDoor()"
+                        class="px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:-translate-y-0.5 transition">
+                    Unlock
+                </button>
+
+                <button onclick="lockDoor()"
+                        class="px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:-translate-y-0.5 transition">
+                    Lock
+                </button>
+            </div>
+
+            <div id="lockStatus" class="mt-3 font-bold">Door is Locked</div>
+        </div>
+
+        <div class="card bg-white p-5 rounded-2xl border border-slate-200 shadow-md cursor-pointer outline-none transition hover:-translate-y-0.5 hover:shadow-xl"
+             tabindex="0">
+            <h2 class="text-lg font-semibold mb-3">🌡️ Thermostat Settings</h2>
+
+            <input type="range" id="temperature" min="10" max="30" value="20"
+                   class="w-full mt-2 mb-2 accent-blue-600">
+
+            <div class="flex justify-between text-xs font-bold text-slate-500">
+                <span>10°C</span>
+                <span id="tempValue">20°C</span>
+                <span>30°C</span>
+            </div>
+
+            <button onclick="setTemperature()"
+                    class="mt-3 px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:-translate-y-0.5 transition">
+                Set Temperature
+            </button>
+
+            <div id="tempStatus" class="mt-2 font-bold"></div>
+        </div>
+
+        <div class="card bg-white p-5 rounded-2xl border border-slate-200 shadow-md cursor-pointer outline-none transition hover:-translate-y-0.5 hover:shadow-xl"
+             tabindex="0">
+            <h2 class="text-lg font-semibold mb-3">🛡️ Firmware Update</h2>
+
+            <input type="text" id="signature" placeholder="Enter digital signature"
+                   class="w-full px-3 py-2 mt-2 mb-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-500/30">
+
+            <button onclick="verifyFirmware()"
+                    class="px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 hover:-translate-y-0.5 transition">
+                Verify & Update
+            </button>
+
+            <div id="firmwareStatus" class="mt-2 font-bold"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function unlockDoor() {
+        const el = document.getElementById("lockStatus");
+        el.innerText = "Door Unlocked Successfully";
+        el.className = "mt-3 font-bold text-green-600";
+    }
+
+    function lockDoor() {
+        const el = document.getElementById("lockStatus");
+        el.innerText = "Door Locked";
+        el.className = "mt-3 font-bold text-red-600";
+    }
+
+    function setTemperature() {
+        let temp = parseInt(document.getElementById("temperature").value);
+        let status = document.getElementById("tempStatus");
+
+        if (temp >= 10 && temp <= 30) {
+            status.innerText = "Temperature set to " + temp + "°C";
+            status.className = "mt-2 font-bold text-green-600";
+        } else {
+            status.innerText = "Invalid range! Allowed: 10-30°C";
+            status.className = "mt-2 font-bold text-red-600";
+        }
+    }
+
+    (function () {
+        const slider = document.getElementById('temperature');
+        const value = document.getElementById('tempValue');
+        const sync = () => value.textContent = slider.value + '°C';
+        slider.addEventListener('input', sync);
+        sync();
+    })();
+
+    function verifyFirmware() {
+        let signature = document.getElementById("signature").value;
+        let status = document.getElementById("firmwareStatus");
+
+        const validSignature = "SECURE123SIGN";
+
+        if (signature === validSignature) {
+            status.innerText = "Digital signature valid. Firmware updated.";
+            status.className = "mt-2 font-bold text-green-600";
+        } else {
+            status.innerText = "Invalid signature! Update blocked.";
+            status.className = "mt-2 font-bold text-red-600";
+        }
+    }
+
+    (function () {
+        const cards = document.querySelectorAll('.card');
+
+        function clear() {
+            cards.forEach(c => {
+                c.classList.remove(
+                    "bg-blue-50",
+                    "border-blue-400",
+                    "shadow-lg",
+                    "ring-2",
+                    "ring-blue-500/30"
+                );
+            });
+        }
+
+        function select(card) {
+            clear();
+            card.classList.add(
+                "bg-blue-50",
+                "border-blue-400",
+                "shadow-lg",
+                "ring-2",
+                "ring-blue-500/30"
+            );
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('button, input')) return;
+                select(card);
+            });
+
+            card.addEventListener('keydown', (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    select(card);
+                }
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
