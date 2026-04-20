@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Камера за достъп и оторизация</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans text-slate-900 bg-[radial-gradient(1200px_700px_at_10%_0%,#eaf1ff_0%,transparent_55%),radial-gradient(900px_600px_at_90%_10%,#e9fff5_0%,transparent_60%)] bg-slate-100 p-6">
+
+<div class="max-w-[900px] mx-auto">
+
+    <div class="text-center mt-2 mb-4">
+        <h1 class="text-[clamp(22px,3vw,30px)] font-bold tracking-tight">
+            📹 Камера за достъп и оторизация
+        </h1>
+        <p class="text-sm text-slate-500 mt-2">You are on: Camera Login</p>
+    </div>
+
+    <nav class="flex flex-wrap justify-center gap-2 p-2 mb-6 rounded-2xl border border-slate-200 bg-white/60 backdrop-blur">
+
+        <a href="full_form.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-blue-600 hover:bg-blue-700 transition">
+            Back to Dashboard
+        </a>
+
+        <a href="Index.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 ring-2 ring-blue-500/40 hover:bg-slate-800 transition">
+            📹 Security Camera
+        </a>
+
+        <a href="Automation.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            💡 Smart Lighting
+        </a>
+
+        <a href="cyberSecurity.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            🚨 Alarm PIN Setup
+        </a>
+    </nav>
+
+    <div class="max-w-[720px] mx-auto bg-white rounded-2xl border border-slate-200 shadow-md p-6">
+
+        <form action="#" method="post" class="space-y-4">
+
+            <div>
+                <label class="block font-semibold mb-2">Потребителско име</label>
+                <input type="text" id="username" name="username" required
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/30">
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2">Парола</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/30">
+            </div>
+
+            <button type="submit"
+                class="w-full px-4 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 hover:-translate-y-0.5 transition shadow-sm hover:shadow-lg">
+                Вход
+            </button>
+        </form>
+
+        <div class="mt-6">
+            <h2 class="text-lg font-semibold mb-3">Видео поток</h2>
+
+            <video controls
+                class="w-full rounded-xl bg-black shadow-md">
+                <source src="camera-stream.mp4" type="video/mp4">
+                Вашият браузър не поддържа video tag.
+            </video>
+        </div>
+
+        <footer class="mt-5 text-sm text-slate-500">
+            Само оторизирани потребители имат достъп до камерата.
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>

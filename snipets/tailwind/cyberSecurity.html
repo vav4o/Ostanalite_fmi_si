@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚨 Alarm PIN Setup</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans text-slate-900 bg-[radial-gradient(1200px_700px_at_10%_0%,#eaf1ff_0%,transparent_55%),radial-gradient(900px_600px_at_90%_10%,#e9fff5_0%,transparent_60%)] bg-slate-100 p-6">
+
+<div class="max-w-[1100px] mx-auto">
+
+    <div class="text-center mt-2 mb-4">
+        <h1 class="text-[clamp(22px,3vw,30px)] font-bold tracking-tight">
+            🚨 Alarm PIN Setup
+        </h1>
+        <p class="text-sm text-slate-500 mt-2">You are on: Alarm PIN Setup</p>
+    </div>
+
+    <nav class="flex flex-wrap justify-center gap-2 p-2 mb-6 rounded-2xl border border-slate-200 bg-white/60 backdrop-blur">
+
+        <a href="full_form.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-blue-600 hover:bg-blue-700 transition">
+            Back to Dashboard
+        </a>
+
+        <a href="Index.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            📹 Security Camera
+        </a>
+
+        <a href="Automation.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            💡 Smart Lighting
+        </a>
+
+        <a href="cyberSecurity.html"
+           class="px-3 py-2 rounded-xl text-sm text-white bg-slate-900 ring-2 ring-blue-500/40 hover:bg-slate-800 transition">
+            🚨 Alarm PIN Setup
+        </a>
+    </nav>
+
+    <div class="max-w-[520px] mx-auto bg-white border border-slate-200 rounded-2xl shadow-md p-6 text-center">
+
+        <h2 class="text-lg font-semibold mb-2">Алармена система</h2>
+        <p class="text-sm text-slate-500 mb-4">Въведете 4-цифров PIN код:</p>
+
+        <form onsubmit="return checkPin(this)" class="space-y-3">
+
+            <input
+                type="password"
+                maxlength="4"
+                pattern="[0-9]{4}"
+                required
+                placeholder="••••"
+                oninvalid="this.setCustomValidity('Пробвай ей тва 0000')"
+                oninput="this.setCustomValidity('')"
+                class="w-full px-3 py-2 text-center border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/30"
+            >
+
+            <button type="submit"
+                class="w-full px-4 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 hover:-translate-y-0.5 transition shadow-sm hover:shadow-lg">
+                Запази PIN
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+function checkPin(form) {
+    const pin = form.querySelector("input").value;
+    alert("PIN saved: " + pin);
+    return false;
+}
+</script>
+
+</body>
+</html>

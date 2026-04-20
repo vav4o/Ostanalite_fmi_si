@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Lighting Automation</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans text-slate-900 bg-[radial-gradient(1200px_700px_at_10%_0%,#eaf1ff_0%,transparent_55%),radial-gradient(900px_600px_at_90%_10%,#e9fff5_0%,transparent_60%)] bg-slate-100 p-6">
+
+<div class="max-w-[1100px] mx-auto">
+
+    <div class="text-center mt-2 mb-4">
+        <h1 class="text-[clamp(22px,3vw,32px)] font-bold tracking-tight">
+            Умно осветление: Графици и автоматизация
+        </h1>
+        <p class="text-sm text-slate-500 mt-2">Smart Lighting Automation</p>
+    </div>
+
+    <nav class="flex flex-nowrap justify-center gap-2 p-2 mb-6 rounded-2xl border border-slate-200 bg-white/60 backdrop-blur">
+        <a href="full_form.html" class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            Home
+        </a>
+        <a href="Index.html" class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            📹 Security Camera
+        </a>
+        <a href="Automation.html" class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            💡 Smart Lighting
+        </a>
+        <a href="cyberSecurity.html" class="flex-1 min-w-[190px] text-center px-3 py-2 rounded-xl text-sm text-white bg-slate-900 hover:bg-slate-800 transition">
+            🚨 Alarm PIN Setup
+        </a>
+    </nav>
+
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-md p-6">
+
+        <form id="SmartLightingForm" class="space-y-5">
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Име на зона / стая</label>
+                <input id="zoneName" name="zoneName" type="text"
+                    placeholder="напр. Хол, Спалня"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-500/30"
+                    required>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Изберете лампа / устройство</label>
+                <select id="deviceId" name="deviceId"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-500/30">
+                    <option value="">-- Изберете лампа --</option>
+                    <option value="lamp-living-1">Хол - Лампа 1</option>
+                    <option value="lamp-living-2">Хол - Лампа 2</option>
+                    <option value="lamp-bedroom-1">Спалня - Лампа 1</option>
+                    <option value="lamp-kitchen-1">Кухня - Основна лампа</option>
+                    <option value="lamp-corridor-1">Коридор - Лампа</option>
+                    <option value="lamp-bathroom-1">Баня - Лампа</option>
+                </select>
+
+                <small id="deviceError" class="text-red-500 hidden">Моля, изберете лампа.</small>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <div>
+                    <label class="block font-semibold mb-2 text-slate-700">Час на включване</label>
+                    <input id="startTime" type="time"
+                        class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-4 focus:ring-green-500/30">
+                    <small id="timeErrorStart" class="text-red-500 hidden">Моля, въведете час на включване.</small>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-2 text-slate-700">Час на изключване</label>
+                    <input id="endTime" type="time"
+                        class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-4 focus:ring-green-500/30">
+                    <small id="timeErrorEnd" class="text-red-500 hidden">Моля, въведете час на изключване.</small>
+                </div>
+
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Дни от седмицата</label>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="mon"> Понеделник</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="tue"> Вторник</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="wed"> Сряда</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="thu"> Четвъртък</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="fri"> Петък</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="sat"> Събота</label>
+                    <label class="flex items-center gap-2"><input type="checkbox" name="days" value="sun"> Неделя</label>
+                </div>
+
+                <small id="days-error" class="text-red-500 hidden">Изберете поне един ден.</small>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Яркост (%)</label>
+                <input id="brightness" type="number" min="1" max="100"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-4 focus:ring-green-500/30">
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Режим</label>
+                <select id="mode"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl focus:ring-4 focus:ring-green-500/30">
+                    <option value="">-- Изберете режим --</option>
+                    <option value="normal">Стандартен</option>
+                    <option value="eco">Икономичен</option>
+                    <option value="night">Нощен</option>
+                </select>
+
+                <small id="modeError" class="text-red-500 hidden">Моля, изберете режим.</small>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Сензор за движение</label>
+
+                <div class="flex gap-4 text-sm">
+                    <label class="flex items-center gap-2">
+                        <input type="radio" name="motionSensor" value="enabled" checked>
+                        Активиран
+                    </label>
+
+                    <label class="flex items-center gap-2">
+                        <input type="radio" name="motionSensor" value="disabled">
+                        Деактивиран
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold mb-2 text-slate-700">Бележки</label>
+                <textarea id="notes"
+                    class="w-full px-3 py-2 border border-slate-300 rounded-xl h-32 resize-y focus:ring-4 focus:ring-green-500/30"
+                    placeholder="Описания..."></textarea>
+            </div>
+
+            <button type="submit"
+                class="w-1/2 px-4 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+                Запази графика
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('SmartLightingForm').addEventListener('submit', function(event) {
+
+    const select = document.getElementById('deviceId');
+    const deviceError = document.getElementById('deviceError');
+
+    if (select.value === "") {
+        deviceError.classList.remove("hidden");
+        event.preventDefault();
+    } else {
+        deviceError.classList.add("hidden");
+    }
+
+    const mode = document.getElementById('mode');
+    const modeError = document.getElementById('modeError');
+
+    if (mode.value === "") {
+        modeError.classList.remove("hidden");
+        event.preventDefault();
+    } else {
+        modeError.classList.add("hidden");
+    }
+
+    const days = document.querySelectorAll('input[name="days"]:checked');
+    const daysError = document.getElementById('days-error');
+
+    if (days.length === 0) {
+        daysError.classList.remove("hidden");
+        event.preventDefault();
+    } else {
+        daysError.classList.add("hidden");
+    }
+
+    const brightness = document.getElementById('brightness').value;
+    if (brightness < 1 || brightness > 100) {
+        alert("Brightness must be between 1 and 100");
+        event.preventDefault();
+    }
+});
+</script>
+
+</body>
+</html>
