@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Home & IoT Security Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class'
+}
+</script>
+
+</head>
+
+<body class="bg-gray-100 
+            dark:bg-gray-900 p-5 
+            font-sans 
+            transition-colors 
+            duration-300">
+
+<!-- Title -->
+<h1 class="text-center 
+            text-3xl font-bold 
+            text-gray-800 
+            dark:text-gray-100 mb-6">
+    Smart Home & IoT Security Dashboard
+</h1>
+
+<!-- Toggle -->
+<div class="text-center mb-6">
+  <button 
+    onclick="toggleDarkMode()" 
+    class="relative w-14 h-8 
+            bg-gray-300 
+            dark:bg-gray-600 
+            rounded-full 
+            transition 
+            flex 
+            items-center px-1 mx-auto"
+  >
+    <div id="toggleCircle"
+      class="w-6 h-6 bg-white rounded-full shadow-md transform transition"
+    ></div>
+  </button>
+</div>
+
+<!-- Card -->
+<div class="bg-white dark:bg-gray-800 
+            p-5 rounded-xl 
+            shadow-md 
+            flex flex-col 
+            items-center 
+            max-w-md mx-auto">
+
+    <h2 class="text-center 
+                text-xl font-semibold 
+                mb-4 text-gray-800 
+                dark:text-gray-200">
+        🛡️ Firmware Update
+    </h2>
+
+    <input 
+        type="file" 
+        id="fileInput" 
+        accept=".txt"
+        class="w-full p-2 
+                border border-gray-300 
+                dark:border-gray-600 
+                rounded mb-3 bg-white 
+                dark:bg-gray-700 
+                text-gray-900 
+                dark:text-white"
+    >
+
+    <!-- Left-aligned button -->
+    <div class="w-full">
+        <button 
+            onclick="verifyFirmware()" 
+            class="px-4 py-2 
+                    bg-blue-500 hover:bg-blue-600 
+                    text-white 
+                    rounded 
+                    transition"
+        >
+            Verify & Update
+        </button>
+    </div>
+
+    <div id="firmwareStatus" class="mt-3 font-semibold text-center"></div>
+</div>
+
+<script>
+function verifyFirmware() {
+    const fileInput = document.getElementById("fileInput");
+    const status = document.getElementById("firmwareStatus");
+    const validSignature = "SECURE123SIGN";
+
+    if (fileInput.files.length === 0) {
+        status.innerText = "Please upload a .txt file.";
+        status.className = "mt-3 font-semibold text-red-500 text-center";
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const fileContent = event.target.result.trim();
+
+        if (fileContent === validSignature) {
+            status.innerText = "Digital signature valid. Firmware updated.";
+            status.className = "mt-3 font-semibold text-green-500 text-center";
+        } else {
+            status.innerText = "Invalid signature! Update blocked.";
+            status.className = "mt-3 font-semibold text-red-500 text-center";
+        }
+    };
+
+    reader.onerror = function() {
+        status.innerText = "Error reading file.";
+        status.className = "mt-3 font-semibold text-red-500 text-center";
+    };
+
+    reader.readAsText(file);
+}
+
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const circle = document.getElementById("toggleCircle");
+
+    const isDark = html.classList.toggle("dark");
+    localStorage.setItem("darkMode", isDark);
+
+    if (isDark) {
+        circle.classList.add("translate-x-6", "bg-yellow-300");
+    } else {
+        circle.classList.remove("translate-x-6", "bg-yellow-300");
+    }
+}
+
+// Load saved mode
+window.addEventListener("DOMContentLoaded", () => {
+    const circle = document.getElementById("toggleCircle");
+
+    if (localStorage.getItem("darkMode") === "true") {
+        document.documentElement.classList.add("dark");
+        circle.classList.add("translate-x-6", "bg-yellow-300");
+    }
+});
+</script>
+
+</body>
+</html>
