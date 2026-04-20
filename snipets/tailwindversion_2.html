@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Home Security</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-gray-200 flex">
+
+<!-- SIDEBAR -->
+<aside class="w-60 bg-gray-900 border-r border-gray-800 min-h-screen p-5">
+
+    <h2 class="text-lg font-bold text-blue-400 mb-6">⚡ IoT Secure</h2>
+
+    <nav class="space-y-2 text-sm">
+        <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+            📹 Camera
+        </a>
+        <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+            🔐 Lock
+        </a>
+        <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+            🌡️ Thermostat
+        </a>
+        <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+            💡 Lighting
+        </a>
+        <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+            🚨 Alarm
+        </a>
+    </nav>
+
+</aside>
+
+<!-- MAIN -->
+<div class="flex-1 flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-lg font-semibold text-blue-300">Camera API Access</h1>
+        <span class="text-green-400 text-sm">● System Secure</span>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="p-6 flex justify-center items-start">
+
+        <div class="w-full max-w-lg bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+
+            <h2 class="text-center text-xl font-bold text-blue-400 mb-5">
+                📹 Camera Authorization
+            </h2>
+
+            <form id="apiForm" class="space-y-4">
+
+                <input type="text" id="username" placeholder="Username"
+                    class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+
+                <input type="password" id="password" placeholder="Password"
+                    class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+
+                <button
+                    class="w-full bg-blue-600 hover:bg-blue-700 transition p-3 rounded-lg font-semibold">
+                    Send Request
+                </button>
+
+            </form>
+
+            <p id="status" class="text-center mt-4 font-semibold"></p>
+
+            <div class="mt-6">
+                <h3 class="text-sm text-gray-400 mb-1">Request JSON</h3>
+                <pre id="requestJson"
+                    class="bg-black text-green-400 p-3 rounded-lg text-xs overflow-x-auto"></pre>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm text-gray-400 mb-1">Response JSON</h3>
+                <pre id="responseJson"
+                    class="bg-black text-green-400 p-3 rounded-lg text-xs overflow-x-auto"></pre>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+document.getElementById("apiForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const u = username.value.trim();
+    const p = password.value.trim();
+
+    const req = { username: u, password: p };
+    requestJson.textContent = JSON.stringify(req, null, 4);
+
+    if(u.length < 3 || p.length < 6){
+        status.innerHTML = "❌ Access Denied";
+        status.className = "text-red-400 text-center mt-4 font-bold";
+
+        responseJson.textContent = JSON.stringify({
+            status:400,
+            message:"Validation failed",
+            access:false
+        }, null, 4);
+        return;
+    }
+
+    status.innerHTML = "✅ Access Granted";
+    status.className = "text-green-400 text-center mt-4 font-bold";
+
+    responseJson.textContent = JSON.stringify({
+        status:200,
+        message:"Authorized",
+        access:true,
+        stream:"camera-stream.mp4"
+    }, null, 4);
+});
+</script>
+
+</body>
+</html>
